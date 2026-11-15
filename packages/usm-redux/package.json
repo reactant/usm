@@ -11,11 +11,12 @@
   },
   "homepage": "https://github.com/reactant/usm#readme",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "pnpm -w exec tsdown --filter usm-redux"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/reactant/usm.git",
+    "url": "git+https://github.com/reactant/usm.git",
     "directory": "packages/usm-redux"
   },
   "engines": {
@@ -31,5 +32,36 @@
   "dependencies": {
     "mutative": "^2.0.2",
     "redux": "^5.0.1"
-  }
+  },
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.cjs.js"
+      }
+    },
+    "./package.json": "./package.json",
+    "./dist/index.esm.js": {
+      "types": "./dist/index.d.mts",
+      "default": "./dist/index.mjs"
+    },
+    "./dist/index.cjs.js": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.cjs.js"
+    },
+    "./dist/index.umd.js": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.umd.js"
+    }
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "sideEffects": false,
+  "type": "commonjs"
 }
