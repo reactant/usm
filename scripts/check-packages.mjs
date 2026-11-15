@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
-import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { mkdtempSync, rmSync, writeFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
@@ -59,7 +59,7 @@ try {
   for (const extension of ['cts', 'mts']) {
     const file = path.join(directory, `consumer.${extension}`);
     writeFileSync(file, consumer);
-    execFileSync(path.join(root, 'node_modules/.bin/tsc'), ['--noEmit', '--strict', '--skipLibCheck', '--target', 'ES2018', '--lib', 'ESNext,DOM', '--module', 'NodeNext', '--moduleResolution', 'NodeNext', file], { cwd: directory, stdio: 'inherit' });
+    execFileSync(path.join(root, 'node_modules/.bin/tsc'), ['--noEmit', '--strict', '--target', 'ES2018', '--lib', 'ES2025,DOM', '--module', 'NodeNext', '--moduleResolution', 'NodeNext', file], { cwd: directory, stdio: 'inherit' });
   }
   console.log('All packed packages passed runtime and declaration checks.');
 } finally {

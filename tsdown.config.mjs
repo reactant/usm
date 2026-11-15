@@ -16,8 +16,12 @@ export default defineConfig(
     minify: true,
     sourcemap: true,
     define: { __DEV__: 'false' },
-    deps: { neverBundle: Object.keys(manifest.dependencies ?? {}) },
-    dts: { compilerOptions: { skipLibCheck: true } },
+    deps: {
+      neverBundle: Object.keys(manifest.dependencies ?? {}),
+      // Vuex 4 omits its types from exports; inline them for modern consumers.
+      dts: { alwaysBundle: ['vuex'], neverBundle: Object.keys({ ...manifest.dependencies, ...manifest.devDependencies }).filter((name) => name !== 'vuex') },
+    },
+    dts: true,
     format: {
       esm: {
         outExtensions: () => ({ js: '.mjs', dts: '.d.mts' }),
