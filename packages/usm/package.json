@@ -31,6 +31,7 @@
     ".": {
       "import": {
         "types": "./dist/index.d.mts",
+        "node": "./dist/index.node.mjs",
         "default": "./dist/index.mjs"
       },
       "require": {

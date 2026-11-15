@@ -1,4 +1,4 @@
-import { copyFileSync } from 'node:fs';
+import { copyFileSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { defineConfig } from 'tsdown';
 import { packages, root } from './scripts/packages.mjs';
@@ -55,12 +55,25 @@ export default defineConfig(
       },
     },
     hooks: {
-      'build:done': () => {
+      'build:done': ({ chunks }) => {
         // Keep the existing bundler entry and CDN URLs alongside native ESM.
         copyFileSync(
           path.join(cwd, 'dist/index.mjs'),
           path.join(cwd, 'dist/index.esm.js')
         );
+        // Node imports and require must share decorator symbols and staged state.
+        const entry = chunks.find(
+          (chunk) =>
+            chunk.type === 'chunk' &&
+            chunk.isEntry &&
+            !chunk.fileName.includes('.d.')
+        );
+        if (entry?.exports.length) {
+          writeFileSync(
+            path.join(cwd, 'dist/index.node.mjs'),
+            `import api from './index.cjs.js';\nexport const { ${entry.exports.join(', ')} } = api;\n`
+          );
+        }
         copyFileSync(
           path.join(root, 'LICENSE'),
           path.join(cwd, 'dist/LICENSE')

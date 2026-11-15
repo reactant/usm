@@ -28,6 +28,7 @@ try {
     for (const file of [
       'dist/index.cjs.js',
       'dist/index.mjs',
+      'dist/index.node.mjs',
       'dist/index.esm.js',
       'dist/index.umd.js',
       'dist/index.d.ts',
@@ -56,8 +57,19 @@ try {
     { cwd: directory, stdio: 'inherit' }
   );
   const require = createRequire(path.join(directory, 'package.json'));
+  const importer = path.join(directory, 'importer.mjs');
+  writeFileSync(importer, 'export const load = (name) => import(name);\n');
+  const { load } = await import(pathToFileURL(importer).href);
   for (const { manifest } of packages) {
     const cjs = require(manifest.name);
+    const nodeEsm = await load(manifest.name);
+    for (const key of Object.keys(cjs)) {
+      assert.equal(
+        nodeEsm[key],
+        cjs[key],
+        `${manifest.name}: Node import/require identity for ${key}`
+      );
+    }
     const esm = await import(
       pathToFileURL(
         path.join(directory, 'node_modules', manifest.name, 'dist/index.mjs')
