@@ -1,4 +1,3 @@
-/* eslint-disable func-names */
 import { create, Patch } from 'mutative';
 import { Action, Service } from '../interface';
 import {
@@ -33,7 +32,7 @@ export const action = (
         const enablePatches = this[enablePatchesKey];
         const strict = this[strictKey];
         if (enablePatches) {
-           [state, patches, inversePatches] = create(lastState, recipe, {
+          [state, patches, inversePatches] = create(lastState, recipe, {
             enablePatches: true,
             strict,
             enableAutoFreeze: strict,

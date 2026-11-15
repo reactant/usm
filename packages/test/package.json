@@ -1,29 +1,29 @@
 {
   "name": "test",
-  "private": true,
   "version": "4.9.0",
+  "private": true,
+  "homepage": "https://github.com/reactant/usm#readme",
   "bugs": {
     "url": "https://github.com/reactant/usm/issues"
   },
-  "homepage": "https://github.com/reactant/usm#readme",
-  "scripts": {
-    "test": "pnpm -w exec vitest run packages/test/test"
-  },
+  "license": "MIT",
+  "author": "unadlib",
   "repository": {
     "type": "git",
     "url": "https://github.com/reactant/usm.git",
     "directory": "packages/test"
   },
-  "engines": {
-    "node": ">=14.0"
+  "scripts": {
+    "test": "pnpm -w exec vitest run packages/test/test"
   },
-  "author": "unadlib",
-  "license": "MIT",
   "dependencies": {
     "usm": "workspace:*",
     "usm-mobx": "workspace:*",
     "usm-pinia": "workspace:*",
     "usm-redux": "workspace:*",
     "usm-vuex": "workspace:*"
+  },
+  "engines": {
+    "node": ">=14.0"
   }
 }

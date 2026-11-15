@@ -1,9 +1,19 @@
 {
   "private": true,
+  "description": "A concise & flexible state model for Redux/MobX/Vuex, etc.",
+  "keywords": [],
+  "homepage": "https://github.com/reactant/usm#readme",
+  "bugs": {
+    "url": "https://github.com/reactant/usm/issues"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/reactant/usm.git"
+  },
   "workspaces": [
     "packages/*"
   ],
-  "description": "A concise & flexible state model for Redux/MobX/Vuex, etc.",
   "scripts": {
     "commit": "git-cz",
     "test:dev": "node scripts/test.mjs development",
@@ -15,47 +25,35 @@
     "publish": "lerna exec --no-private --no-bail -- npm publish",
     "test:package": "node scripts/check-packages.mjs",
     "test:prod": "node scripts/test.mjs production",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "lint": "oxlint --deny-warnings",
+    "lint:fix": "oxlint --fix",
+    "format": "oxfmt --write .",
+    "format:check": "oxfmt --check ."
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/reactant/usm.git"
-  },
-  "keywords": [],
-  "authors": [
-    "Michael Lin <unadlib@gmail.com> (https://github.com/unadlib)"
-  ],
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/reactant/usm/issues"
-  },
-  "homepage": "https://github.com/reactant/usm#readme",
   "devDependencies": {
     "@types/node": "^24.19.2",
-    "@typescript-eslint/eslint-plugin": "^8.38.0",
-    "@typescript-eslint/parser": "^8.38.0",
     "commitizen": "^4.1.2",
-    "eslint": "^8.36.0",
-    "eslint-config-airbnb": "^19.0.4",
-    "eslint-config-prettier": "^8.8.0",
-    "eslint-plugin-import": "^2.19.1",
-    "eslint-plugin-prettier": "^4.2.1",
     "lerna": "^6.4.1",
-    "prettier": "^2.0.5",
+    "oxfmt": "0.78.0",
+    "oxlint": "1.93.0",
     "publint": "0.3.25",
     "rimraf": "^4.4.0",
     "tsdown": "0.23.7",
     "typescript": "~7.0.2",
-    "vitest": "5.1.0",
-    "vite": "8.3.8"
+    "vite": "8.3.8",
+    "vitest": "5.1.0"
   },
   "config": {
     "commitizen": {
       "path": "cz-conventional-changelog"
     }
   },
-  "packageManager": "pnpm@12.21.0",
   "engines": {
     "node": ">=22.18.0"
-  }
+  },
+  "packageManager": "pnpm@12.21.0",
+  "authors": [
+    "Michael Lin <unadlib@gmail.com> (https://github.com/unadlib)"
+  ]
 }

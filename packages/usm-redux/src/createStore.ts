@@ -3,7 +3,6 @@ import {
   createStore as createStoreWithRedux,
   combineReducers,
   ReducersMapObject,
-  Reducer,
   Store as ReduxStore,
 } from 'redux';
 import {

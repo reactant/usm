@@ -3,13 +3,8 @@
     "target": "ES2018",
     "module": "Preserve",
     "moduleResolution": "Bundler",
-    "lib": [
-      "ES2025",
-      "DOM"
-    ],
-    "types": [
-      "node"
-    ],
+    "lib": ["ES2025", "DOM"],
+    "types": ["node"],
     "strict": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
@@ -19,9 +14,7 @@
     "sourceMap": true,
     "forceConsistentCasingInFileNames": true,
     "paths": {
-      "vuex": [
-        "./packages/usm-vuex/node_modules/vuex/types/index.d.ts"
-      ]
+      "vuex": ["./packages/usm-vuex/node_modules/vuex/types/index.d.ts"]
     }
   },
   "include": [
@@ -31,9 +24,5 @@
     "packages/*/test/**/*.ts",
     "vitest.config.mts"
   ],
-  "exclude": [
-    "node_modules",
-    "**/dist",
-    "**/build"
-  ]
+  "exclude": ["node_modules", "**/dist", "**/build"]
 }

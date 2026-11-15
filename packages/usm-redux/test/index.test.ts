@@ -48,7 +48,7 @@ test('enablePatches', () => {
 
   const snapshots: Record<string, any>[] = [];
 
-  const store = createStore(
+  createStore(
     {
       modules: [counter],
     },

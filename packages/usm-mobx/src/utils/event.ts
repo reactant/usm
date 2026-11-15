@@ -34,7 +34,7 @@ export class EventEmitter {
     const listener = { callback, once };
     if (isExist) {
       throw new Error(
-        `Event type \'${eventType.toString()}\' has been registered, please re-register it.`
+        `Event type '${eventType.toString()}' has been registered, please re-register it.`
       );
     }
     if (priority) {

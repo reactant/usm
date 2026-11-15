@@ -2,39 +2,32 @@
   "name": "usm-vuex",
   "version": "4.9.0",
   "description": "Universal state model for Vuex",
-  "main": "dist/index.cjs.js",
-  "unpkg": "dist/index.umd.js",
-  "module": "dist/index.esm.js",
-  "types": "dist/index.d.ts",
-  "bugs": {
-    "url": "https://github.com/reactant/usm/issues"
-  },
-  "homepage": "https://github.com/reactant/usm#readme",
-  "scripts": {
-    "test": "pnpm -w exec vitest run packages/usm-vuex/test",
-    "build": "pnpm -w exec tsdown --filter usm-vuex"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/reactant/usm.git",
-    "directory": "packages/usm-vuex"
-  },
-  "engines": {
-    "node": ">=14.0"
-  },
   "keywords": [
     "USM",
     "Vuex",
     "universal state model"
   ],
-  "author": "unadlib",
+  "homepage": "https://github.com/reactant/usm#readme",
+  "bugs": {
+    "url": "https://github.com/reactant/usm/issues"
+  },
   "license": "MIT",
-  "dependencies": {
-    "vuex": "^4.1.0"
+  "author": "unadlib",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/reactant/usm.git",
+    "directory": "packages/usm-vuex"
   },
-  "devDependencies": {
-    "vue": "^3.5.22"
-  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "type": "commonjs",
+  "sideEffects": false,
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "unpkg": "dist/index.umd.js",
   "exports": {
     ".": {
       "import": {
@@ -60,10 +53,17 @@
       "default": "./dist/index.umd.js"
     }
   },
-  "files": [
-    "dist",
-    "src"
-  ],
-  "sideEffects": false,
-  "type": "commonjs"
+  "scripts": {
+    "test": "pnpm -w exec vitest run packages/usm-vuex/test",
+    "build": "pnpm -w exec tsdown --filter usm-vuex"
+  },
+  "dependencies": {
+    "vuex": "^4.1.0"
+  },
+  "devDependencies": {
+    "vue": "^3.5.22"
+  },
+  "engines": {
+    "node": ">=14.0"
+  }
 }

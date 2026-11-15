@@ -4,7 +4,6 @@ on: [push]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     strategy:
@@ -12,16 +11,16 @@ jobs:
         node-version: [22.x, 24.x]
 
     steps:
-    - uses: actions/checkout@v3
-    - uses: pnpm/action-setup@v6
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-    - name: pnpm install --frozen-lockfile, build, and test
-      run: |
-        pnpm install --frozen-lockfile
-        pnpm build
-        pnpm test
-      env:
-        CI: true
+      - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v6
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: pnpm install --frozen-lockfile, build, and test
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm build
+          pnpm test
+        env:
+          CI: true

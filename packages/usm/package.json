@@ -2,35 +2,31 @@
   "name": "usm",
   "version": "4.9.0",
   "description": "Universal state model",
-  "main": "dist/index.cjs.js",
-  "unpkg": "dist/index.umd.js",
-  "module": "dist/index.esm.js",
-  "types": "dist/index.d.ts",
+  "keywords": [
+    "USM",
+    "universal state model"
+  ],
+  "homepage": "https://github.com/reactant/usm#readme",
   "bugs": {
     "url": "https://github.com/reactant/usm/issues"
   },
-  "homepage": "https://github.com/reactant/usm#readme",
-  "scripts": {
-    "test": "pnpm -w exec vitest run packages/usm/test",
-    "build": "pnpm -w exec tsdown --filter usm"
-  },
+  "license": "MIT",
+  "author": "unadlib",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/reactant/usm.git",
     "directory": "packages/usm"
   },
-  "engines": {
-    "node": ">=14.0"
-  },
-  "keywords": [
-    "USM",
-    "universal state model"
+  "files": [
+    "dist",
+    "src"
   ],
-  "author": "unadlib",
-  "license": "MIT",
-  "dependencies": {
-    "mutative": "^2.0.2"
-  },
+  "type": "commonjs",
+  "sideEffects": false,
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "unpkg": "dist/index.umd.js",
   "exports": {
     ".": {
       "import": {
@@ -56,10 +52,14 @@
       "default": "./dist/index.umd.js"
     }
   },
-  "files": [
-    "dist",
-    "src"
-  ],
-  "sideEffects": false,
-  "type": "commonjs"
+  "scripts": {
+    "test": "pnpm -w exec vitest run packages/usm/test",
+    "build": "pnpm -w exec tsdown --filter usm"
+  },
+  "dependencies": {
+    "mutative": "^2.0.2"
+  },
+  "engines": {
+    "node": ">=14.0"
+  }
 }

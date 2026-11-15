@@ -1,4 +1,3 @@
-/* eslint-disable func-names */
 import { create, Patch } from 'mutative';
 import { Service, Action } from '../interface';
 import {

@@ -1,7 +1,3 @@
-/* eslint-disable no-shadow */
-/* eslint-disable consistent-return */
-/* eslint-disable no-else-return */
-/* eslint-disable @typescript-eslint/no-this-alias */
 import { isEqual } from './utils';
 
 const enum ComputedFlags {

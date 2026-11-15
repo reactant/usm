@@ -40,7 +40,7 @@ export interface StoreOptions {
 export type Unsubscribe = () => void;
 export type Subscription = () => void;
 
-export interface Action<T = Record<string, any>> {
+export interface Action<_T = Record<string, any>> {
   type: string;
   method: string | symbol;
   params: any[];
@@ -56,7 +56,10 @@ export interface Store<T = Record<string, any>> {
 
 export type Subscribe = (module: any, listener: () => void) => Unsubscribe;
 
-export type Watch = <P extends boolean, T extends P extends true ? any[] : any>(
+export type Watch = <
+  P extends boolean,
+  T extends (P extends true ? any[] : any),
+>(
   module: any,
   selector: () => P extends true ? readonly [...T] | [...T] : T,
   watcher: (newValue: T, oldValue: T) => void,

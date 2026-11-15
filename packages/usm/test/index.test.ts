@@ -1,6 +1,6 @@
 import { expect, test, vi } from 'vitest';
 import { apply } from 'mutative';
-import { createStore, action, state, computed, Action } from '../index';
+import { createStore, action, state, Action } from '../index';
 
 test('base', () => {
   class Counter {
@@ -46,7 +46,7 @@ test('enablePatches', () => {
 
   const snapshots: Record<string, any>[] = [];
 
-  const store = createStore(
+  createStore(
     {
       modules: [counter],
     },

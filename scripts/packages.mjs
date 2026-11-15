@@ -7,7 +7,9 @@ export const packages = readdirSync(path.join(root, 'packages'))
   .sort()
   .map((directory) => {
     const cwd = path.join(root, 'packages', directory);
-    const manifest = JSON.parse(readFileSync(path.join(cwd, 'package.json'), 'utf8'));
+    const manifest = JSON.parse(
+      readFileSync(path.join(cwd, 'package.json'), 'utf8')
+    );
     return { cwd, manifest };
   })
   .filter(({ manifest }) => !manifest.private);

@@ -65,7 +65,6 @@ export function computed(...args: any[]) {
         (that: Service) => {
           return [that[storeKey]?.getState()];
         },
-        // eslint-disable-next-line func-names
         function (this: Service) {
           return depsCallback(this);
         }

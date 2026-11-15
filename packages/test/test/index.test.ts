@@ -125,21 +125,23 @@ test('base with { strict: true }', () => {
     if (key === 'usm' || key === 'usmRedux') {
       try {
         counter.count.sum += 1;
-      } catch (e) {
+      } catch {
         //
       }
       expect(counter.count).toEqual({ sum: 1 });
     } else if (key === 'usmVuex' || key === 'usmPinia') {
       try {
         counter.count.sum += 1;
-      } catch (e) {
+      } catch {
         //
       }
       // vuex/pinia do not support freeze
       expect(counter.count).toEqual({ sum: 2 });
     } else {
       const list: string[] = [];
-      vi.spyOn(console, 'warn').mockImplementation((msg: string) => list.push(msg));
+      vi.spyOn(console, 'warn').mockImplementation((msg: string) =>
+        list.push(msg)
+      );
       counter.count.sum += 1;
       if (process.env.NODE_ENV === 'production') {
         expect(list).toEqual([]);
@@ -555,7 +557,7 @@ test('base with watch multiple values', () => {
       modules: [counter],
     });
 
-    const [oldState] = Object.values(store.getState());
+    const [_oldState] = Object.values(store.getState());
     // expect(oldState).toEqual({
     //   count0: 0,
     //   count1: 0,

@@ -1,0 +1,33 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["typescript", "import", "vitest"],
+  "categories": {
+    "correctness": "error"
+  },
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "globals": {
+    "__DEV__": "readonly"
+  },
+  "ignorePatterns": ["**/dist/**", "**/build/**", "node_modules/**"],
+  "rules": {
+    "typescript/no-explicit-any": "off"
+  },
+  "overrides": [
+    {
+      "files": ["packages/*/src/signal.ts"],
+      "rules": {
+        "typescript/no-this-alias": "off"
+      }
+    },
+    {
+      "files": ["**/test/**/*.test.ts"],
+      "rules": {
+        "vitest/require-mock-type-parameters": "off",
+        "vitest/no-conditional-expect": "off"
+      }
+    }
+  ]
+}

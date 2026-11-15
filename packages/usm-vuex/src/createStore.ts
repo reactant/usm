@@ -119,16 +119,14 @@ export const createStore = (
     }
     if (service[gettersKey]) {
       for (const key in service[gettersKey]) {
-        modules[identifier].getters![key] = service[gettersKey][key].bind(
-          service
-        );
+        modules[identifier].getters![key] =
+          service[gettersKey][key].bind(service);
       }
     }
     if (service[actionsKey]) {
       for (const key in service[actionsKey]) {
-        modules[identifier].mutations![key] = service[actionsKey][key].bind(
-          service
-        );
+        modules[identifier].mutations![key] =
+          service[actionsKey][key].bind(service);
       }
     }
     Object.assign(descriptors, {

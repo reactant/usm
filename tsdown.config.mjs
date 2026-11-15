@@ -19,7 +19,13 @@ export default defineConfig(
     deps: {
       neverBundle: Object.keys(manifest.dependencies ?? {}),
       // Vuex 4 omits its types from exports; inline them for modern consumers.
-      dts: { alwaysBundle: ['vuex'], neverBundle: Object.keys({ ...manifest.dependencies, ...manifest.devDependencies }).filter((name) => name !== 'vuex') },
+      dts: {
+        alwaysBundle: ['vuex'],
+        neverBundle: Object.keys({
+          ...manifest.dependencies,
+          ...manifest.devDependencies,
+        }).filter((name) => name !== 'vuex'),
+      },
     },
     dts: true,
     format: {
@@ -33,7 +39,9 @@ export default defineConfig(
       },
       umd: {
         dts: false,
-        globalName: manifest.name.replace(/-(\w)/g, (_, letter) => letter.toUpperCase()),
+        globalName: manifest.name.replace(/-(\w)/g, (_, letter) =>
+          letter.toUpperCase()
+        ),
         outExtensions: () => ({ js: '.js' }),
         outputOptions: {
           globals: {
@@ -49,8 +57,14 @@ export default defineConfig(
     hooks: {
       'build:done': () => {
         // Keep the existing bundler entry and CDN URLs alongside native ESM.
-        copyFileSync(path.join(cwd, 'dist/index.mjs'), path.join(cwd, 'dist/index.esm.js'));
-        copyFileSync(path.join(root, 'LICENSE'), path.join(cwd, 'dist/LICENSE'));
+        copyFileSync(
+          path.join(cwd, 'dist/index.mjs'),
+          path.join(cwd, 'dist/index.esm.js')
+        );
+        copyFileSync(
+          path.join(root, 'LICENSE'),
+          path.join(cwd, 'dist/LICENSE')
+        );
       },
     },
   }))

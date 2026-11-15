@@ -4,7 +4,7 @@ import { PropertyDescriptor, Service } from '../interface';
 export const state = (
   target: object,
   key: string | symbol,
-  descriptor?: PropertyDescriptor<any>
+  _descriptor?: PropertyDescriptor<any>
 ) => {
   if (typeof key !== 'string') {
     throw new Error(
