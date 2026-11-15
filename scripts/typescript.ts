@@ -114,7 +114,7 @@ const compile = async (generate: Generate) => {
   await handleWorkspaces(async (packageParentDir, packageChildDir) => {
     const packageChildPath = path.resolve(packageParentDir, packageChildDir);
     const project = packageChildPath.replace(`${process.cwd()}/`, '');
-    spawn('yarn', ['build', '-p', project], { stdio: 'inherit' });
+    spawn('pnpm', ['build', '-p', project], { stdio: 'inherit' });
     // await compileProject(generate, packageChildPath);
   });
 };

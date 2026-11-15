@@ -7,10 +7,10 @@ Using `usm-redux` to develop a modular application system. **`usm-redux` can hel
 
 ## Installation
 
-using yarn:
+using pnpm:
 
 ```bash
-yarn add usm-redux
+pnpm add usm-redux
 ```
 
 Or npm:

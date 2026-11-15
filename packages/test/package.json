@@ -20,10 +20,10 @@
   "author": "unadlib",
   "license": "MIT",
   "dependencies": {
-    "usm": "^4.9.0",
-    "usm-mobx": "^4.9.0",
-    "usm-pinia": "^4.9.0",
-    "usm-redux": "^4.9.0",
-    "usm-vuex": "^4.9.0"
+    "usm": "workspace:*",
+    "usm-mobx": "workspace:*",
+    "usm-pinia": "workspace:*",
+    "usm-redux": "workspace:*",
+    "usm-vuex": "workspace:*"
   }
 }

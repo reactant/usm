@@ -7,10 +7,10 @@ Using `usm-pinia` to develop a modular application system. **`usm-pinia` can hel
 
 ## Installation
 
-using yarn:
+using pnpm:
 
 ```bash
-yarn add usm-pinia
+pnpm add usm-pinia
 ```
 
 Or npm:

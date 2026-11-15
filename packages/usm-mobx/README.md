@@ -7,10 +7,10 @@ Using `usm-mobx` to develop a modular application system. **`usm-mobx` can help 
 
 ## Installation
 
-using yarn:
+using pnpm:
 
 ```bash
-yarn add usm-mobx
+pnpm add usm-mobx
 ```
 
 Or npm:

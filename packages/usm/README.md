@@ -7,10 +7,10 @@ Using `usm` to develop a modular application system. **`usm` can help you make m
 
 ## Installation
 
-using yarn:
+using pnpm:
 
 ```bash
-yarn add usm
+pnpm add usm
 ```
 
 Or npm:

@@ -24,7 +24,7 @@ When you don't want to learn the paradigm of any state library, `usm` can help y
 To install `usm`:
 
 ```bash
-yarn add usm # npm install --save usm
+pnpm add usm # npm install --save usm
 ```
 
 **And if you want to use Redux/MobX/Vuex/Pinia, you just install `usm-redux`/`usm-mobx`/`usm-vuex`/`usm-pinia`.**

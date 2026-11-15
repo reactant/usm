@@ -3,15 +3,12 @@
   "workspaces": [
     "packages/*"
   ],
-  "devEngines": {
-    "node": "18.x || 20.x || 22.x"
-  },
   "description": "A concise & flexible state model for Redux/MobX/Vuex, etc.",
   "scripts": {
-    "commit": "yarn git-cz",
+    "commit": "git-cz",
     "test:dev": "cross-env NODE_ENV=development jest --config ./scripts/jest/dev.config.json",
     "test:useES2015": "cross-env NODE_ENV=development jest --config ./scripts/jest/useES2015.config.json",
-    "test": "yarn test:dev",
+    "test": "pnpm test:dev",
     "check:type": "tsc --noEmit",
     "build": "cross-env NODE_ENV=production ts-node scripts/build.ts",
     "clean": "lerna exec rimraf ./dist ./build",
@@ -69,5 +66,9 @@
     "commitizen": {
       "path": "cz-conventional-changelog"
     }
+  },
+  "packageManager": "pnpm@12.21.0",
+  "engines": {
+    "node": ">=22.18.0"
   }
 }
