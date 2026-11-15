@@ -10,6 +10,7 @@ import {
 import path from 'node:path';
 import { packages, root } from './packages.mjs';
 import {
+  parsePackOutput,
   registry,
   validatePublishEnvironment,
   validateRelease,
@@ -47,13 +48,14 @@ const directory = path.join(root, '.release');
 if (mode === 'pack') {
   mkdirSync(directory, { recursive: true });
   const artifacts = packages.map(({ cwd, manifest }) => {
-    const packed = JSON.parse(
+    const packed = parsePackOutput(
       execFileSync(
         'npm',
         ['pack', '--json', '--ignore-scripts', '--pack-destination', directory],
         { cwd, encoding: 'utf8' }
-      )
-    )[0];
+      ),
+      manifest.name
+    );
     assert.equal(packed.name, manifest.name);
     assert.equal(packed.version, version);
     return {

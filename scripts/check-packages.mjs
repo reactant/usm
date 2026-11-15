@@ -7,6 +7,7 @@ import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { publint } from 'publint';
 import { packages, root } from './packages.mjs';
+import { parsePackOutput } from './release-utils.mjs';
 
 const directory = mkdtempSync(path.join(tmpdir(), 'usm-packages-'));
 const artifactsFlag = process.argv.indexOf('--artifacts');
@@ -37,12 +38,13 @@ try {
     const args = artifactFile
       ? ['pack', artifactFile, '--dry-run', '--json', '--ignore-scripts']
       : ['pack', '--json', '--ignore-scripts', '--pack-destination', directory];
-    const result = JSON.parse(
+    const result = parsePackOutput(
       execFileSync('npm', args, {
         cwd,
         encoding: 'utf8',
-      })
-    )[0];
+      }),
+      manifest.name
+    );
     assert.equal(result.name, manifest.name);
     assert.equal(result.version, manifest.version);
     if (artifact) assert.equal(result.integrity, artifact.integrity);

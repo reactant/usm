@@ -2,6 +2,7 @@ import { AssertionError } from 'node:assert';
 import { describe, expect, test } from 'vitest';
 import {
   packageNames,
+  parsePackOutput,
   registry,
   repository,
   validatePublishEnvironment,
@@ -16,6 +17,29 @@ const manifests = (version = '4.10.0') =>
     repository: { url: `git+https://github.com/${repository}.git` },
     publishConfig: { access: 'public', registry },
   }));
+
+describe('npm pack metadata', () => {
+  const packed = { name: 'usm', version: '4.10.0', filename: 'usm-4.10.0.tgz' };
+  test.each([[packed], { usm: packed }])(
+    'accepts npm 11 and npm 12 output %j',
+    (output) => {
+      expect(parsePackOutput(JSON.stringify(output), 'usm')).toEqual(packed);
+    }
+  );
+  test.each([[], {}, [packed, packed]])(
+    'rejects missing or ambiguous output %j',
+    (output) => {
+      expect(() => parsePackOutput(JSON.stringify(output), 'usm')).toThrow(
+        AssertionError
+      );
+    }
+  );
+  test('rejects a different package', () => {
+    expect(() =>
+      parsePackOutput(JSON.stringify([packed]), 'usm-redux')
+    ).toThrow(AssertionError);
+  });
+});
 
 describe('release validation', () => {
   test.each([
