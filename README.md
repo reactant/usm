@@ -29,6 +29,8 @@ yarn add usm # npm install --save usm
 
 **And if you want to use Redux/MobX/Vuex/Pinia, you just install `usm-redux`/`usm-mobx`/`usm-vuex`/`usm-pinia`.**
 
+`usm` and `usm-redux` depend on Mutative 2.x (minimum 2.0.2). Mutative's builds target ES2018; transpile that dependency when targeting older browsers. See the [Mutative v2 migration guide](https://mutative.js.org/docs/advanced-guides/migration-v2/) for changes to patch behavior and runtime checks.
+
 ## Usage
 
 - Use `@state` to decorate a module state.
