@@ -1,7 +1,8 @@
+import { expect, test, vi } from 'vitest';
 import { createStore, action, state, computed } from '../index';
 
 test('base', () => {
-  const computedFn = jest.fn();
+  const computedFn = vi.fn();
   class Counter {
     @state
     count = { sum: 0 };
@@ -26,7 +27,7 @@ test('base', () => {
 
   const oldState = Object.values(store.getState())[0] as Counter;
   expect(oldState.count).toEqual({ sum: 0 });
-  const fn = jest.fn();
+  const fn = vi.fn();
   store.subscribe(() => {
     fn();
   });

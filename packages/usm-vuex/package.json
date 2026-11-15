@@ -11,7 +11,7 @@
   },
   "homepage": "https://github.com/reactant/usm#readme",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "pnpm -w exec vitest run packages/usm-vuex/test",
     "build": "pnpm -w exec tsdown --filter usm-vuex"
   },
   "repository": {

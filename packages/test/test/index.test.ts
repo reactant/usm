@@ -1,3 +1,4 @@
+import { expect, test, vi } from 'vitest';
 import * as usm from 'usm';
 import * as usmMobx from 'usm-mobx';
 import * as usmRedux from 'usm-redux';
@@ -41,7 +42,7 @@ test('base', () => {
 
     const oldState = Object.values(store.getState())[0] as Counter;
     expect(oldState.count).toEqual(0);
-    const fn = jest.fn();
+    const fn = vi.fn();
     store.subscribe(() => {
       fn();
     });
@@ -79,7 +80,7 @@ test('base with single action', () => {
 
     const oldState = Object.values(store.getState())[0] as Counter;
     expect(oldState.count).toEqual({ sum: 0 });
-    const fn = jest.fn();
+    const fn = vi.fn();
     store.subscribe(() => {
       fn();
     });
@@ -113,7 +114,7 @@ test('base with { strict: true }', () => {
 
     const oldState = Object.values(store.getState())[0] as Counter;
     expect(oldState.count).toEqual({ sum: 0 });
-    const fn = jest.fn();
+    const fn = vi.fn();
     store.subscribe(() => {
       fn();
     });
@@ -138,11 +139,15 @@ test('base with { strict: true }', () => {
       expect(counter.count).toEqual({ sum: 2 });
     } else {
       const list: string[] = [];
-      global.console.warn = (msg: string) => list.push(msg);
+      vi.spyOn(console, 'warn').mockImplementation((msg: string) => list.push(msg));
       counter.count.sum += 1;
-      expect(list.slice(-1)[0]).toMatch(
-        '[MobX] Since strict-mode is enabled, changing (observed) observable values without using an action is not allowed.'
-      );
+      if (process.env.NODE_ENV === 'production') {
+        expect(list).toEqual([]);
+      } else {
+        expect(list.slice(-1)[0]).toMatch(
+          '[MobX] Since strict-mode is enabled, changing (observed) observable values without using an action is not allowed.'
+        );
+      }
     }
   }
 });
@@ -151,7 +156,7 @@ test('base with immutable computed', () => {
   for (const key in packagesWithImmutable) {
     const { createStore, action, state, computed } =
       packagesWithImmutable[key as keyof typeof packagesWithImmutable];
-    const computedFn = jest.fn();
+    const computedFn = vi.fn();
     class Counter0 {
       @state
       count = { sum: 0 };
@@ -189,7 +194,7 @@ test('base with immutable computed', () => {
 
     const oldState = Object.values(store.getState())[0] as Counter;
     expect(oldState.count).toEqual({ sum: 0 });
-    const fn = jest.fn();
+    const fn = vi.fn();
     store.subscribe(() => {
       fn();
     });
@@ -212,7 +217,7 @@ test('base with auto computed', () => {
   for (const key in packages) {
     const { createStore, action, state, computed } =
       packages[key as keyof typeof packages];
-    const computedFn = jest.fn();
+    const computedFn = vi.fn();
     class Counter {
       @state
       count = { sum: 0 };
@@ -237,7 +242,7 @@ test('base with auto computed', () => {
 
     const oldState = Object.values(store.getState())[0] as Counter;
     expect(oldState.count).toEqual({ sum: 0 });
-    const fn = jest.fn();
+    const fn = vi.fn();
     store.subscribe(() => {
       fn();
     });
@@ -258,7 +263,7 @@ test('base with immutable single computed', () => {
   for (const key in packagesWithImmutable) {
     const { createStore, action, state, computed } =
       packagesWithImmutable[key as keyof typeof packagesWithImmutable];
-    const computedFn = jest.fn();
+    const computedFn = vi.fn();
     class Counter {
       @state
       count = { sum: 0 };
@@ -288,7 +293,7 @@ test('base with immutable single computed', () => {
 
     const oldState = Object.values(store.getState())[0] as Counter;
     expect(oldState.count).toEqual({ sum: 0 });
-    const fn = jest.fn();
+    const fn = vi.fn();
     store.subscribe(() => {
       fn();
     });
@@ -303,7 +308,7 @@ test('base with observable single computed', () => {
   for (const key in packagesWithObservable) {
     const { createStore, action, state, computed } =
       packagesWithObservable[key as keyof typeof packagesWithObservable];
-    const computedFn = jest.fn();
+    const computedFn = vi.fn();
     class Counter {
       @state
       count = { sum: 0 };
@@ -333,7 +338,7 @@ test('base with observable single computed', () => {
 
     const oldState = Object.values(store.getState())[0] as Counter;
     expect(oldState.count).toEqual({ sum: 0 });
-    const fn = jest.fn();
+    const fn = vi.fn();
     store.subscribe(() => {
       fn();
     });
@@ -378,7 +383,7 @@ test('base with multi-instance', () => {
     expect(Object.keys(store.getState())[1]).toBe('counter1');
     expect(counter1.name).toBe('counter');
     expect(counter.name).toBe('counter');
-    const fn = jest.fn();
+    const fn = vi.fn();
     store.subscribe(() => {
       fn();
     });
@@ -431,7 +436,7 @@ test('base with preloadedState', () => {
 
 test('base with subscribe', () => {
   for (const key in packages) {
-    const fn = jest.fn();
+    const fn = vi.fn();
     const { createStore, action, state, subscribe } =
       packages[key as keyof typeof packages];
     class Counter {
@@ -469,7 +474,7 @@ test('base with watch', () => {
   for (const key in packages) {
     const { createStore, action, state, watch } =
       packages[key as keyof typeof packages];
-    const fn = jest.fn();
+    const fn = vi.fn();
     class Counter {
       constructor() {
         (watch as usm.Watch)(
@@ -510,7 +515,7 @@ test('base with watch multiple values', () => {
   for (const key in packages) {
     const { createStore, action, state, watch } =
       packages[key as keyof typeof packages];
-    const watchFn = jest.fn();
+    const watchFn = vi.fn();
 
     class Counter {
       constructor() {
@@ -557,7 +562,7 @@ test('base with watch multiple values', () => {
     //   count2: 0,
     // });
     expect(watchFn.mock.calls.length).toBe(0);
-    const fn = jest.fn();
+    const fn = vi.fn();
     store.subscribe(() => {
       fn();
     });
@@ -710,7 +715,7 @@ test('call super with Multiple inheritance and multiple instances', () => {
     expect(oldState2.count).toEqual({ sum: 0 });
     const oldState3 = Object.values(store.getState())[0] as Counter2;
     expect(oldState3.count).toEqual({ sum: 0 });
-    const fn = jest.fn();
+    const fn = vi.fn();
     store.subscribe(() => {
       fn();
     });
@@ -763,7 +768,7 @@ test('base with cross-action and cross-module', () => {
 
     const oldState = Object.values(store.getState())[0] as Counter;
     expect(oldState.count).toEqual({ sum: 0 });
-    const fn = jest.fn();
+    const fn = vi.fn();
     store.subscribe(() => {
       fn();
     });
@@ -781,8 +786,8 @@ test('base watch about define `isEqual`', () => {
     const { createStore, action, state, watch } =
       packages[key as keyof typeof packages];
 
-    const watchFn0 = jest.fn();
-    const watchFn1 = jest.fn();
+    const watchFn0 = vi.fn();
+    const watchFn1 = vi.fn();
     class Counter {
       constructor() {
         watch(this, () => this.count0, watchFn0, {
@@ -823,7 +828,7 @@ test('base watch about define `isEqual`', () => {
 
     expect(counter.count0).toBe(0);
     expect(counter.count1).toBe(0);
-    const subscribeFn = jest.fn();
+    const subscribeFn = vi.fn();
     store.subscribe(() => {
       subscribeFn();
     });

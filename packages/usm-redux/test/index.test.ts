@@ -1,3 +1,4 @@
+import { expect, test, vi } from 'vitest';
 import { apply } from 'mutative';
 import { applyMiddleware } from 'redux';
 import { createStore, action, state, Action } from '../index';
@@ -21,7 +22,7 @@ test('base', () => {
 
   const [oldState] = Object.values(store.getState());
   expect(oldState).toEqual({ count: { sum: 0 } });
-  const fn = jest.fn();
+  const fn = vi.fn();
   store.subscribe(() => {
     fn();
   });
@@ -109,7 +110,7 @@ test.each([false, true])(
     });
     const initialState = store.getState();
     const initialList = Object.values(initialState)[0] as List;
-    const listener = jest.fn();
+    const listener = vi.fn();
     store.subscribe(listener);
 
     list.rearrange();
