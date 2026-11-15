@@ -1,6 +1,2 @@
 packages:
   - packages/*
-
-allowBuilds:
-  '@parcel/watcher': false
-  nx: false

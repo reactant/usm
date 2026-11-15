@@ -54,6 +54,10 @@
       "default": "./dist/index.umd.js"
     }
   },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
   "scripts": {
     "test": "pnpm -w exec vitest run packages/usm-redux/test",
     "build": "pnpm -w exec tsdown --filter usm-redux"

@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
-import { mkdtempSync, rmSync, writeFileSync } from 'node:fs';
+import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
@@ -9,6 +9,17 @@ import { publint } from 'publint';
 import { packages, root } from './packages.mjs';
 
 const directory = mkdtempSync(path.join(tmpdir(), 'usm-packages-'));
+const artifactsFlag = process.argv.indexOf('--artifacts');
+const artifactDirectory =
+  artifactsFlag === -1
+    ? undefined
+    : path.resolve(process.argv[artifactsFlag + 1]);
+const artifacts = artifactDirectory
+  ? JSON.parse(
+      readFileSync(path.join(artifactDirectory, 'manifest.json'), 'utf8')
+    )
+  : undefined;
+process.env.NODE_ENV ??= 'production';
 try {
   const dependencies = {};
   for (const { cwd, manifest } of packages) {
@@ -18,12 +29,23 @@ try {
       0,
       `${manifest.name}: ${JSON.stringify(messages)}`
     );
+    const artifact = artifacts?.find(({ name }) => name === manifest.name);
+    if (artifacts)
+      assert.ok(artifact, `Missing release artifact: ${manifest.name}`);
+    const artifactFile =
+      artifact && path.join(artifactDirectory, artifact.filename);
+    const args = artifactFile
+      ? ['pack', artifactFile, '--dry-run', '--json', '--ignore-scripts']
+      : ['pack', '--json', '--ignore-scripts', '--pack-destination', directory];
     const result = JSON.parse(
-      execFileSync('npm', ['pack', '--json', '--pack-destination', directory], {
+      execFileSync('npm', args, {
         cwd,
         encoding: 'utf8',
       })
     )[0];
+    assert.equal(result.name, manifest.name);
+    assert.equal(result.version, manifest.version);
+    if (artifact) assert.equal(result.integrity, artifact.integrity);
     const files = new Set(result.files.map(({ path: file }) => file));
     for (const file of [
       'dist/index.cjs.js',
@@ -43,7 +65,7 @@ try {
       )
     );
     dependencies[manifest.name] =
-      `file:${path.join(directory, result.filename)}`;
+      `file:${artifactFile ?? path.join(directory, result.filename)}`;
   }
   // Vue is a peer of Vuex and Pinia; install it just as an application would.
   dependencies.vue = '3.5.22';
