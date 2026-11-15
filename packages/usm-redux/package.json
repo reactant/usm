@@ -7,15 +7,15 @@
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
   "bugs": {
-    "url": "https://github.com/unadlib/usm/issues"
+    "url": "https://github.com/reactant/usm/issues"
   },
-  "homepage": "https://github.com/unadlib/usm#readme",
+  "homepage": "https://github.com/reactant/usm#readme",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/unadlib/usm.git",
+    "url": "https://github.com/reactant/usm.git",
     "directory": "packages/usm-redux"
   },
   "engines": {

@@ -20,7 +20,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/unadlib/usm.git"
+    "url": "git+https://github.com/reactant/usm.git"
   },
   "keywords": [],
   "authors": [
@@ -28,9 +28,9 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/unadlib/usm/issues"
+    "url": "https://github.com/reactant/usm/issues"
   },
-  "homepage": "https://github.com/unadlib/usm#readme",
+  "homepage": "https://github.com/reactant/usm#readme",
   "devDependencies": {
     "@rollup/plugin-commonjs": "^24.0.1",
     "@rollup/plugin-node-resolve": "^15.0.1",
