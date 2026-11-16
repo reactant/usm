@@ -71,6 +71,9 @@ try {
   }
   // Vue is a peer of Vuex and Pinia; install it just as an application would.
   dependencies.vue = '3.5.22';
+  dependencies['@vue/devtools-api'] = packages.find(
+    ({ manifest }) => manifest.name === 'usm-pinia'
+  ).manifest.devDependencies['@vue/devtools-api'];
   writeFileSync(
     path.join(directory, 'package.json'),
     JSON.stringify({ private: true, dependencies })
