@@ -37,7 +37,7 @@
     "release:pack": "node scripts/release.mjs pack",
     "release:dry-run": "node scripts/release.mjs dry-run",
     "release:publish": "node scripts/release.mjs publish",
-    "check": "pnpm lint && pnpm format:check && pnpm build && pnpm check:type && pnpm test && pnpm test:package"
+    "check": "pnpm changeset:status && pnpm lint && pnpm format:check && pnpm build && pnpm check:type && pnpm test && pnpm test:package"
   },
   "devDependencies": {
     "@changesets/cli": "3.0.3",

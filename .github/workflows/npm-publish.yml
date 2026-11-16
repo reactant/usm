@@ -33,6 +33,7 @@ jobs:
           cache: pnpm
       - run: npm install --global npm@12.2.2 --ignore-scripts
       - run: pnpm install --frozen-lockfile
+      - run: pnpm changeset:status
       - run: pnpm release:check
       - run: pnpm lint
       - run: pnpm format:check
