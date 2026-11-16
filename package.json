@@ -17,6 +17,8 @@
     "packages/*"
   ],
   "scripts": {
+    "changeset": "changeset",
+    "changeset:status": "changeset status",
     "test:dev": "node scripts/test.mjs development",
     "test": "pnpm test:dev && pnpm test:prod",
     "check:type": "tsc --noEmit",
@@ -37,6 +39,7 @@
     "check": "pnpm lint && pnpm format:check && pnpm build && pnpm check:type && pnpm test && pnpm test:package"
   },
   "devDependencies": {
+    "@changesets/cli": "3.0.3",
     "@types/node": "^24.19.2",
     "oxfmt": "0.78.0",
     "oxlint": "1.93.0",
