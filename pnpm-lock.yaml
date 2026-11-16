@@ -1287,11 +1287,6 @@ packages:
     resolution: {integrity: sha512-9mlCkp5FQ6eZ5LuKWVEgcrfhcm5P13jqPebLimb2OKGoziBOUzes8D3spqZ4WIOugAv9ZQMDNwh0LBueVGoYEg==}
     engines: {node: '>=14.0'}
 
-  nanoid@3.3.11:
-    resolution: {integrity: sha512-N8SpfPUnUp1bK+PMYW8qSWdl9U+wwNWI4QKxOYDy9JAro3WMX7p2OeVRF9v+347pnakNevPmiHhNmZ2HbFA76w==}
-    engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
-    hasBin: true
-
   nanoid@3.3.20:
     resolution: {integrity: sha512-uKdg2G3GNCKQn9byYOpxbGqrT2fGO5KRt5J/8b3pok8rT6qxGWF6hxMyJiEYtAf+FVyYuD9hRaDqX5uPFYJ4ZQ==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
@@ -1354,10 +1349,6 @@ packages:
 
   postcss@8.5.33:
     resolution: {integrity: sha512-RVHEU9/Pp1Fnjr/MpAJsZoADukCKhfIi15OunEYiGktIkYLkPVvC1sioWolGDS7XByMTx9m/IGbro0Js13zhnQ==}
-    engines: {node: ^10 || ^12 || >=14}
-
-  postcss@8.5.6:
-    resolution: {integrity: sha512-3Ybi1tAuwAP9s0r1UQ2J4n5Y0G05bJkpUIO0/bI9MhwmD70S5aTWbXGBwxHrelT+XM1k6dM0pk+SwNkpTRN7Pg==}
     engines: {node: ^10 || ^12 || >=14}
 
   publint@0.3.25:
@@ -2158,7 +2149,7 @@ snapshots:
       '@vue/shared': 3.5.22
       estree-walker: 2.0.2
       magic-string: 0.30.19
-      postcss: 8.5.6
+      postcss: 8.5.33
       source-map-js: 1.2.1
 
   '@vue/compiler-ssr@3.5.22':
@@ -2369,8 +2360,6 @@ snapshots:
 
   mutative@2.0.2: {}
 
-  nanoid@3.3.11: {}
-
   nanoid@3.3.20: {}
 
   obug@3.0.0: {}
@@ -2441,12 +2430,6 @@ snapshots:
       nanoid: 3.3.20
       picocolors: 1.1.1
       source-map-js: 1.2.2
-
-  postcss@8.5.6:
-    dependencies:
-      nanoid: 3.3.11
-      picocolors: 1.1.1
-      source-map-js: 1.2.1
 
   publint@0.3.25:
     dependencies:
