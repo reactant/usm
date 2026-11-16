@@ -230,8 +230,8 @@ importers:
   packages/usm-mobx:
     dependencies:
       mobx:
-        specifier: ^6.13.7
-        version: 6.13.7
+        specifier: ^7.1.7
+        version: 7.1.7
 
   packages/usm-pinia:
     dependencies:
@@ -1276,8 +1276,8 @@ packages:
   mitt@3.0.1:
     resolution: {integrity: sha512-vKivATfr97l2/QBCYAkXYDbrIWPM2IIKEl7YPhjCvKlG3kE2gm+uBo6nEXK3M5/Ffh/FLpKExzOQ3JJoJGFKBw==}
 
-  mobx@6.13.7:
-    resolution: {integrity: sha512-aChaVU/DO5aRPmk1GX8L+whocagUUpBQqoPtJk+cm7UOXUk87J4PeWCh6nNmTTIfEhiR9DI/+FnA8dln/hTK7g==}
+  mobx@7.1.7:
+    resolution: {integrity: sha512-fzFPm0u0xHxrAyjFsjfA/a99JgyvLh8R/bnTe7uD37cwbO5O7OUrv/e6Q4rlYdBGCf3rR/pVvh1OVMPF10ghng==}
 
   mri@1.2.0:
     resolution: {integrity: sha512-tzzskb3bG8LvYGFF/mDTpq3jpI6Q9wc3LEmBaghu+DdCssd1FakN7Bc0hVNmEyGq1bq3RgfkCb3cmQLpNPOroA==}
@@ -2363,7 +2363,7 @@ snapshots:
 
   mitt@3.0.1: {}
 
-  mobx@6.13.7: {}
+  mobx@7.1.7: {}
 
   mri@1.2.0: {}
 
