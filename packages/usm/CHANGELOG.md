@@ -9,4 +9,5 @@
 - Define explicit package exports for the root entry, `package.json`, and the existing `dist/index.cjs.js`, `dist/index.esm.js`, and `dist/index.umd.js` entry paths. Other deep imports, including `usm/src/*`, are no longer accessible through resolvers that enforce package exports; import public APIs from `usm`.
 - Publish tsdown-built CommonJS, native ESM, and UMD bundles with source maps and bundled `.d.ts` / `.d.mts` declarations. Node.js `import` and `require` share the same decorator symbols and staged action state through an ESM bridge; browser bundlers use the native ESM entry.
 - Add regression coverage for nested actions, reordered array drafts, forward and inverse patch replay, structural sharing, and strict-mode freezing.
+- Correct the browser UMD dependency global to `Mutative` and validate script loading against Mutative's published browser build.
 - Move repository development to pnpm, TypeScript 7, Vitest, Oxlint, and Oxfmt, with Changesets managing synchronized releases. Update repository and issue links to [reactant/usm](https://github.com/reactant/usm).

@@ -51,11 +51,11 @@ export default defineConfig(
         outExtensions: () => ({ js: '.js' }),
         outputOptions: {
           globals: {
-            mutative: 'mutative',
-            redux: 'redux',
+            mutative: 'Mutative',
+            redux: 'Redux',
             mobx: 'mobx',
-            vuex: 'vuex',
-            pinia: 'pinia',
+            vuex: 'Vuex',
+            pinia: 'Pinia',
           },
         },
       },

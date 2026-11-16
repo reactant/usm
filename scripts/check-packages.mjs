@@ -5,7 +5,9 @@ import { createRequire } from 'node:module';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
+import vm from 'node:vm';
 import { publint } from 'publint';
+import { Rolldown } from 'tsdown';
 import { packages, root } from './packages.mjs';
 import { parsePackOutput } from './release-utils.mjs';
 
@@ -111,9 +113,60 @@ try {
       ).href
     );
     const umd = require(`${manifest.name}/dist/index.umd.js`);
+    // Exercise the browser branch too: require(UMD) cannot catch incorrect
+    // external global names. Load the upstream CDN builds without Node globals.
+    const browser = vm.createContext({ console });
+    const runBrowserScript = (name, file) =>
+      vm.runInContext(
+        readFileSync(
+          path.join(directory, 'node_modules', name, 'dist', file),
+          'utf8'
+        ),
+        browser
+      );
+    if (manifest.dependencies.mutative) {
+      runBrowserScript('mutative', 'mutative.umd.production.min.js');
+    }
+    if (manifest.dependencies.redux) {
+      // Redux 5 ships browser ESM. Bundle that entry into the namespace a
+      // script-tag consumer must provide, keeping every object in one realm.
+      const bundle = await Rolldown.rolldown({
+        input: path.join(
+          directory,
+          'node_modules/redux/dist/redux.browser.mjs'
+        ),
+        platform: 'browser',
+      });
+      try {
+        const { output } = await bundle.generate({
+          format: 'iife',
+          name: 'Redux',
+        });
+        vm.runInContext(output[0].code, browser);
+      } finally {
+        await bundle.close();
+      }
+    }
+    if (manifest.dependencies.mobx) {
+      runBrowserScript('mobx', 'mobx.umd.production.min.js');
+    }
+    if (manifest.dependencies.pinia || manifest.dependencies.vuex) {
+      runBrowserScript('vue', 'vue.global.prod.js');
+      if (manifest.dependencies.pinia) {
+        runBrowserScript('pinia', 'pinia.iife.prod.js');
+      } else {
+        runBrowserScript('vuex', 'vuex.global.prod.js');
+      }
+    }
+    runBrowserScript(manifest.name, 'index.umd.js');
+    const globalName = manifest.name.replace(/-(\w)/g, (_, letter) =>
+      letter.toUpperCase()
+    );
+    const browserUmd = browser[globalName];
     assert.deepEqual(Object.keys(esm).sort(), Object.keys(cjs).sort());
     assert.deepEqual(Object.keys(umd).sort(), Object.keys(cjs).sort());
-    for (const [format, api] of Object.entries({ cjs, esm, umd })) {
+    assert.deepEqual(Object.keys(browserUmd).sort(), Object.keys(cjs).sort());
+    for (const [format, api] of Object.entries({ cjs, esm, umd, browserUmd })) {
       class Counter {
         constructor() {
           this.count = 0;
@@ -143,7 +196,9 @@ try {
       assert.equal(Object.values(store.getState())[0].count, 1);
       assert.equal(notifications, 1);
       if (manifest.name === 'usm-pinia') {
-        await require('vue').nextTick();
+        await (format === 'browserUmd'
+          ? browser.Vue.nextTick()
+          : require('vue').nextTick());
         assert.equal(
           notifications,
           1,
