@@ -1,6 +1,6 @@
 {
   "name": "usm-workspace",
-  "version": "4.9.0",
+  "version": "5.0.0",
   "private": true,
   "description": "A concise & flexible state model for Redux/MobX/Vuex, etc.",
   "keywords": [],

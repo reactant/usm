@@ -1,6 +1,6 @@
 {
   "name": "usm-pinia",
-  "version": "4.9.0",
+  "version": "5.0.0",
   "description": "Universal state model for Pinia",
   "keywords": [
     "Pinia",

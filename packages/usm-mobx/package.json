@@ -1,6 +1,6 @@
 {
   "name": "usm-mobx",
-  "version": "4.9.0",
+  "version": "5.0.0",
   "description": "Universal state model for MobX",
   "keywords": [
     "MobX",
