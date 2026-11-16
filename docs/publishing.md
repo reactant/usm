@@ -18,12 +18,17 @@ Publishing uses npm 12.2.2 on a GitHub-hosted Node.js 24 runner with `id-token: 
 
 ## Prepare a release
 
-1. Run `pnpm update:version 4.10.0` (substitute the intended version). This updates the root and all workspace manifests without committing, tagging, or pushing.
-2. Run `pnpm check` and `pnpm release:check`.
-3. Review and commit the changes, push them, and wait for Node CI to pass.
-4. Create a tag such as `v4.10.0` at that commit, and publish a GitHub Release for that tag.
+1. For a change to a public package, run `pnpm changeset`. Select the affected package, choose the appropriate patch/minor/major bump, and describe the user-visible change. Commit the generated `.changeset/*.md` file with the implementation. Documentation, tests, and development tooling alone do not require a release; `pnpm changeset --empty` can record that decision.
+2. Run `pnpm changeset:status` to inspect the pending release plan. All five public packages are in a Changesets `fixed` group, so a change to one advances all five to the same version. Their generated changelogs describe the changes relevant to each package.
+3. Run `pnpm release:version` to consume the pending changesets, update package versions, and generate changelogs. The wrapper also synchronizes the private root/test workspace versions and formats the generated files with Oxfmt. With no pending changesets, the command stops without changing versions. `pnpm update:version` is an alias; explicit version arguments are no longer accepted.
+4. Run `pnpm install --lockfile-only`, `pnpm check`, and `pnpm release:check`. Review and commit the generated manifests, changelogs, lockfile, and changeset removals, then push and wait for Node CI to pass.
+5. Create a tag matching the new package version, such as `v4.10.0`, at the prepared commit, and publish a GitHub Release for that tag.
+
+Use the wrapper `pnpm release:version` instead of calling `changeset version` directly so the private workspace metadata stays compatible with the release guards. The command does not commit, tag, push, or publish. Changesets manages versions and changelogs; the existing `npm-publish.yml` workflow owns npm publication.
 
 The `release: published` event runs the release workflow. A tag push alone does not publish. The workflow checks out the exact release tag and rejects mismatched package versions or a mismatched GitHub prerelease flag. Stable releases use npm's `latest` tag; versions such as `4.10.0-beta.1` require a prerelease and use `next`.
+
+For prereleases, run `pnpm changeset pre enter beta` before `pnpm release:version`, and commit `.changeset/pre.json` with the generated version changes. Subsequent changesets advance the beta version. Run `pnpm changeset pre exit` and `pnpm release:version` to prepare the stable release. Review the resulting version before creating the matching tag and GitHub Release.
 
 ## Validation and publishing
 
