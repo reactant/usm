@@ -1,6 +1,6 @@
 import { expect, test, vi } from 'vitest';
 import { createPinia, disposePinia, getStores } from 'pinia';
-import { createApp } from 'vue';
+import { createApp, nextTick } from 'vue';
 import { createStore, action, state, computed } from '../index';
 
 test('base', () => {
@@ -45,6 +45,57 @@ test('base', () => {
   expect(counter.sum).toBe(2);
   expect(counter.sum).toBe(2);
   expect(computedFn.mock.calls.length).toBe(2);
+});
+
+test('notifies once per action, including after Vue flushes watchers', async () => {
+  class Counter {
+    @state
+    count = 0;
+
+    @action
+    increase() {
+      this.count += 1;
+    }
+
+    @action
+    increaseTwice() {
+      this.increase();
+      this.increase();
+    }
+  }
+
+  const counter = new Counter();
+  const store = createStore({ modules: [counter] });
+  const listener = vi.fn();
+  const unsubscribe = store.subscribe(listener);
+  try {
+    counter.increaseTwice();
+    expect(counter.count).toBe(2);
+    expect(listener).toHaveBeenCalledTimes(1);
+    await nextTick();
+    expect(listener).toHaveBeenCalledTimes(1);
+
+    const [nativeStore] = getStores(store);
+    nativeStore.$patch((state) => {
+      state.count += 3;
+    });
+    await nextTick();
+    expect(counter.count).toBe(5);
+    expect(listener).toHaveBeenCalledTimes(2);
+
+    counter.count = 6;
+    expect(listener).toHaveBeenCalledTimes(3);
+    await nextTick();
+    expect(listener).toHaveBeenCalledTimes(3);
+
+    unsubscribe();
+    counter.increase();
+    await nextTick();
+    expect(listener).toHaveBeenCalledTimes(3);
+  } finally {
+    unsubscribe();
+    disposePinia(store);
+  }
 });
 
 test('uses an installed Pinia 4 instance, plugins, and hydrated state', () => {

@@ -142,6 +142,14 @@ try {
       assert.equal(counter.count, 1, `${manifest.name} ${format}`);
       assert.equal(Object.values(store.getState())[0].count, 1);
       assert.equal(notifications, 1);
+      if (manifest.name === 'usm-pinia') {
+        await require('vue').nextTick();
+        assert.equal(
+          notifications,
+          1,
+          `${manifest.name} ${format}: duplicate action notification`
+        );
+      }
       unsubscribe();
       console.log(`${manifest.name} ${format}: passed`);
     }

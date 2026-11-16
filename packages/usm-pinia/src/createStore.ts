@@ -209,7 +209,9 @@ export const createStore = (
           eventEmitter.emit(changeStateKey);
         }
       },
-      { detached: true }
+      // Run while dispatch's guard is active. The default deferred watcher
+      // fires after the guard resets and emits a second action notification.
+      { detached: true, flush: 'sync' }
     );
 
     if (Array.isArray(service[subscriptionsKey])) {
