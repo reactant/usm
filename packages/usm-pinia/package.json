@@ -63,7 +63,7 @@
     "build": "pnpm -w exec tsdown --filter usm-pinia"
   },
   "dependencies": {
-    "pinia": "^3.0.3"
+    "pinia": "^4.1.0"
   },
   "devDependencies": {
     "vue": "^3.5.22"
