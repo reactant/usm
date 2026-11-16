@@ -1,6 +1,6 @@
 {
   "name": "usm-mobx",
-  "version": "4.9.0",
+  "version": "5.0.0",
   "description": "Universal state model for MobX",
   "keywords": [
     "MobX",
@@ -63,7 +63,7 @@
     "build": "pnpm -w exec tsdown --filter usm-mobx"
   },
   "dependencies": {
-    "mobx": "^6.13.7"
+    "mobx": "^7.1.7"
   },
   "engines": {
     "node": ">=14.0"

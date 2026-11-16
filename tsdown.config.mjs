@@ -28,6 +28,12 @@ export default defineConfig(
       },
     },
     dts: true,
+    // MobX 7 exposes Disposable in its types. TS 7's declaration bundler drops
+    // source-level lib references, so emit this in both declaration formats.
+    banner:
+      manifest.name === 'usm-mobx'
+        ? { dts: '/// <reference lib="esnext.disposable" />' }
+        : undefined,
     format: {
       esm: {
         outExtensions: () => ({ js: '.mjs', dts: '.d.mts' }),
@@ -45,11 +51,11 @@ export default defineConfig(
         outExtensions: () => ({ js: '.js' }),
         outputOptions: {
           globals: {
-            mutative: 'mutative',
-            redux: 'redux',
+            mutative: 'Mutative',
+            redux: 'Redux',
             mobx: 'mobx',
-            vuex: 'vuex',
-            pinia: 'pinia',
+            vuex: 'Vuex',
+            pinia: 'Pinia',
           },
         },
       },

@@ -1,0 +1,14 @@
+{
+  "$schema": "https://unpkg.com/@changesets/config@4.0.1/schema.json",
+  "changelog": "@changesets/cli/changelog",
+  "commit": false,
+  "fixed": [["usm", "usm-mobx", "usm-pinia", "usm-redux", "usm-vuex"]],
+  "linked": [],
+  "access": "public",
+  "baseBranch": "master",
+  "format": "oxfmt",
+  "privatePackages": { "version": false, "tag": false },
+  "updateInternalDependencies": "patch",
+  "bumpVersionsWithWorkspaceProtocolOnly": true,
+  "ignore": []
+}

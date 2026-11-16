@@ -31,6 +31,12 @@ pnpm add usm # npm install --save usm
 
 `usm` and `usm-redux` depend on Mutative 2.x (minimum 2.0.2). Mutative's builds target ES2018; transpile that dependency when targeting older browsers. See the [Mutative v2 migration guide](https://mutative.js.org/docs/advanced-guides/migration-v2/) for changes to patch behavior and runtime checks.
 
+For script-tag UMD builds, load the backend first: `usm` expects `Mutative`,
+`usm-redux` expects `Mutative` and `Redux`, `usm-mobx` expects `mobx`,
+`usm-vuex` expects `Vuex`, and `usm-pinia` expects `Pinia`. Load Vue's global
+build before Vuex or Pinia. Redux 5 ships browser ESM instead of UMD; bundle
+that entry as the `Redux` global before loading `usm-redux`, or use ESM imports.
+
 ## Usage
 
 - Use `@state` to decorate a module state.

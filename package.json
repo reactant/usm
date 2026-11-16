@@ -1,6 +1,6 @@
 {
   "name": "usm-workspace",
-  "version": "4.9.0",
+  "version": "5.0.0",
   "private": true,
   "description": "A concise & flexible state model for Redux/MobX/Vuex, etc.",
   "keywords": [],
@@ -17,12 +17,15 @@
     "packages/*"
   ],
   "scripts": {
+    "changeset": "changeset",
+    "changeset:status": "changeset status",
     "test:dev": "node scripts/test.mjs development",
     "test": "pnpm test:dev && pnpm test:prod",
     "check:type": "tsc --noEmit",
     "build": "tsdown",
     "clean": "node scripts/clean.mjs",
-    "update:version": "node scripts/version.mjs",
+    "update:version": "pnpm release:version",
+    "release:version": "node scripts/version.mjs",
     "test:package": "node scripts/check-packages.mjs",
     "test:prod": "node scripts/test.mjs production",
     "test:watch": "vitest",
@@ -34,9 +37,10 @@
     "release:pack": "node scripts/release.mjs pack",
     "release:dry-run": "node scripts/release.mjs dry-run",
     "release:publish": "node scripts/release.mjs publish",
-    "check": "pnpm lint && pnpm format:check && pnpm build && pnpm check:type && pnpm test && pnpm test:package"
+    "check": "pnpm changeset:status && pnpm lint && pnpm format:check && pnpm build && pnpm check:type && pnpm test && pnpm test:package"
   },
   "devDependencies": {
+    "@changesets/cli": "3.0.3",
     "@types/node": "^24.19.2",
     "oxfmt": "0.78.0",
     "oxlint": "1.93.0",

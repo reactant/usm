@@ -1,6 +1,6 @@
 {
   "name": "usm-pinia",
-  "version": "4.9.0",
+  "version": "5.0.0",
   "description": "Universal state model for Pinia",
   "keywords": [
     "Pinia",
@@ -63,12 +63,17 @@
     "build": "pnpm -w exec tsdown --filter usm-pinia"
   },
   "dependencies": {
-    "pinia": "^3.0.3"
+    "pinia": "^4.1.0"
   },
   "devDependencies": {
-    "vue": "^3.5.22"
+    "@vue/devtools-api": "^8.2.1",
+    "vue": "^3.5.45"
+  },
+  "peerDependencies": {
+    "@vue/devtools-api": "^8.2.1",
+    "vue": "^3.5.45"
   },
   "engines": {
-    "node": ">=14.0"
+    "node": ">=22.18.0"
   }
 }

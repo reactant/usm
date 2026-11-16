@@ -10,6 +10,15 @@ export const packageNames = [
   'usm-vuex',
 ];
 
+export function parsePackOutput(output, name) {
+  // npm 11 returns an array; npm 12 returns an object keyed by package name.
+  const parsed = JSON.parse(output);
+  const entries = Array.isArray(parsed) ? parsed : Object.values(parsed);
+  assert.equal(entries.length, 1, 'Expected exactly one packed package');
+  assert.equal(entries[0].name, name, 'Packed package name does not match');
+  return entries[0];
+}
+
 export function validateVersion(version) {
   const message = 'Expected an exact version such as 4.10.0 or 4.10.0-beta.1';
   assert.equal(typeof version, 'string', message);

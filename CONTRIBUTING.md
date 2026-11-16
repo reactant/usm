@@ -19,6 +19,9 @@ pnpm check
 | `pnpm lint` / `pnpm lint:fix`       | Check or fix code with Oxlint                                                                                  |
 | `pnpm format:check` / `pnpm format` | Check or format code with Oxfmt                                                                                |
 | `pnpm clean`                        | Remove generated package builds                                                                                |
+| `pnpm changeset`                    | Record a package change and its intended semver bump                                                           |
+| `pnpm changeset:status`             | Review the pending release plan                                                                                |
+| `pnpm release:version`              | Generate synchronized package versions and changelogs                                                          |
 
 Tests use legacy TypeScript decorators (`experimentalDecorators`) and assignment semantics for class fields (`useDefineForClassFields: false`). These options are part of USM's decorator contract.
 
@@ -26,4 +29,4 @@ Node.js imports use an ESM bridge to the CommonJS entry so both loading methods 
 
 Vuex 4 does not expose its declarations in its package exports. The workspace resolves those declarations explicitly, and tsdown bundles the required Vuex declarations into `usm-vuex`; Vue remains an external type dependency. This keeps consumers working with modern TypeScript module resolution.
 
-See [Publishing](docs/publishing.md) for versioning and release instructions.
+Include a changeset with user-facing package changes. Changesets uses a fixed group for the five public packages; selecting one affected package is sufficient to keep their release versions aligned. Documentation, tests, and development tooling changes can omit a release changeset. See [Publishing](docs/publishing.md) for versioning and release instructions.

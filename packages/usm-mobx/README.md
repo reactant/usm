@@ -19,4 +19,11 @@ Or npm:
 npm install --save usm-mobx
 ```
 
+Version 5 uses MobX 7 and requires a runtime with `Proxy` support. USM's
+`@state`, `@computed`, and `@action` decorators still use TypeScript's
+`experimentalDecorators` mode; internally they use explicit `makeObservable`
+annotations, so MobX 7's removal of its own legacy decorators does not change
+the USM decorator API. If your application also calls MobX APIs directly, follow
+the [MobX 7 migration notes](https://github.com/mobxjs/mobx/releases/tag/mobx%407.0.0).
+
 For more details, see: [https://github.com/reactant/usm](https://github.com/reactant/usm)
