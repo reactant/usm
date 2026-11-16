@@ -19,7 +19,7 @@ Or npm:
 npm install --save usm-pinia vue @vue/devtools-api
 ```
 
-Version 5 uses Pinia 4. Install its required peers, Vue `^3.5.11` and
+Version 5 uses Pinia 4. Install its required peers, Vue `^3.5.45` and
 `@vue/devtools-api` `^8.2.1`, in your application. Pinia's type declarations
 require TypeScript 5.6 or newer.
 

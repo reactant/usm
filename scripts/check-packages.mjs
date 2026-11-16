@@ -69,11 +69,19 @@ try {
     dependencies[manifest.name] =
       `file:${artifactFile ?? path.join(directory, result.filename)}`;
   }
-  // Vue is a peer of Vuex and Pinia; install it just as an application would.
-  dependencies.vue = '3.5.22';
-  dependencies['@vue/devtools-api'] = packages.find(
+  // Install the application peers at the versions verified in the workspace.
+  const piniaPackage = packages.find(
     ({ manifest }) => manifest.name === 'usm-pinia'
-  ).manifest.devDependencies['@vue/devtools-api'];
+  );
+  for (const name of ['vue', '@vue/devtools-api']) {
+    const peerManifest = JSON.parse(
+      readFileSync(
+        path.join(piniaPackage.cwd, 'node_modules', name, 'package.json'),
+        'utf8'
+      )
+    );
+    dependencies[name] = peerManifest.version;
+  }
   writeFileSync(
     path.join(directory, 'package.json'),
     JSON.stringify({ private: true, dependencies })
