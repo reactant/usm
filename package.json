@@ -41,14 +41,14 @@
   },
   "devDependencies": {
     "@changesets/cli": "3.0.3",
-    "@types/node": "^26.6.6",
-    "oxfmt": "0.78.0",
-    "oxlint": "1.93.0",
+    "@types/node": "^26.6.7",
+    "oxfmt": "0.80.0",
+    "oxlint": "1.95.0",
     "publint": "0.3.25",
     "tsdown": "0.23.7",
     "typescript": "~7.0.2",
     "vite": "8.3.8",
-    "vitest": "5.1.0"
+    "vitest": "5.1.1"
   },
   "engines": {
     "node": "^22.18.0 || ^24.11.0 || >=26.0.0"

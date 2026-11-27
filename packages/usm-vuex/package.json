@@ -66,10 +66,10 @@
     "vuex": "^4.1.0"
   },
   "devDependencies": {
-    "vue": "^3.5.45"
+    "vue": "^3.5.46"
   },
   "peerDependencies": {
-    "vue": "^3.5.45"
+    "vue": "^3.5.46"
   },
   "engines": {
     "node": ">=14.0"
